@@ -1,0 +1,3 @@
+# Cenário A: open62541 na SRAM interna (comportamento original), Wi-Fi com economia de energia
+# CONFIG_OPEN62541_ALOCAR_PSRAM is not set
+CONFIG_TCC_WIFI_ECONOMIA_ENERGIA=y

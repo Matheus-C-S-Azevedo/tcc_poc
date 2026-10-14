@@ -79,3 +79,6 @@ Desktop.ini
 
 # Configurações locais com credenciais (nunca versionar)
 sdkconfig.local
+
+# Builds dos cenários de avaliação
+build_*/

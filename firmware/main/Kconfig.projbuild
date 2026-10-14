@@ -12,6 +12,14 @@ menu "TCC PoC"
         help
             Defina em sdkconfig.local (fora do git) para não publicar a credencial.
 
+    config TCC_WIFI_ECONOMIA_ENERGIA
+        bool "Economia de energia do Wi-Fi (modem sleep)"
+        default y
+        help
+            Ligado: o rádio dorme entre os beacons do roteador (menor consumo, maior latência).
+            Desligado: o rádio fica sempre ativo (menor latência). Para um equipamento
+            alimentado pela rede elétrica, desligar costuma ser a melhor escolha.
+
     config TCC_OPCUA_PORT
         int "Porta do servidor OPC UA"
         default 4840

@@ -60,6 +60,11 @@ esp_err_t wifi_conectar(uint32_t timeout_ms, esp_ip4_addr_t *ip)
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &config));
     ESP_ERROR_CHECK(esp_wifi_start());
+#if CONFIG_TCC_WIFI_ECONOMIA_ENERGIA
+    ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_MIN_MODEM));
+#else
+    ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
+#endif
 
     ESP_LOGI(TAG, "Conectando em \"%s\"...", CONFIG_TCC_WIFI_SSID);
     EventBits_t bits = xEventGroupWaitBits(s_eventos, BIT_CONECTADO, pdFALSE, pdTRUE,

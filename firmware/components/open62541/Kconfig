@@ -1,0 +1,12 @@
+menu "open62541"
+
+    config OPEN62541_ALOCAR_PSRAM
+        bool "Alocar a memória do open62541 na PSRAM"
+        depends on SPIRAM
+        default y
+        help
+            Redireciona UA_malloc/UA_calloc/UA_realloc/UA_free para a PSRAM,
+            preservando a SRAM interna para Wi-Fi, lwIP e pilhas das tasks.
+            Se a PSRAM estiver cheia, a alocação cai para a SRAM interna.
+
+endmenu

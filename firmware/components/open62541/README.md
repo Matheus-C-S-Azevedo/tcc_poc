@@ -16,6 +16,14 @@ Pilha OPC UA [open62541](https://github.com/open62541/open62541) **v1.5.9**, emp
 | Subscriptions, métodos | ligados | Monitoramento de valores pelo cliente |
 | PubSub, histórico, discovery, XML/JSON, diagnósticos, criptografia, node management | desligados | Fora do escopo da prova de viabilidade |
 
+## Adaptações para o ESP-IDF (arquivos próprios, fora da MPL)
+
+| Arquivo | Função |
+|---|---|
+| `port/include/ua_arch_esp.h` | Injetado via `UA_ARCH_HEADER` antes dos padrões do open62541. Com `CONFIG_OPEN62541_ALOCAR_PSRAM` (menuconfig → open62541, ligado por padrão), redireciona `UA_malloc`/`UA_calloc`/`UA_realloc`/`UA_free` para a PSRAM. |
+| `port/ua_arch_esp.c` | Alocador: prefere a PSRAM e cai para a SRAM interna se ela estiver cheia. |
+| `port/freertos_compat/` | `FreeRTOS.h` e `task.h`, que redirecionam para `freertos/...` (no ESP-IDF v6 o diretório original é privado). |
+
 ## Limitação conhecida
 
 O relógio do porte FreeRTOS conta o tempo desde o boot: os timestamps OPC UA aparecem como 1970 + tempo ligado, até a sincronização de horário (SNTP) ser tratada.
