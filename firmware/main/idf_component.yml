@@ -1,0 +1,8 @@
+dependencies:
+  # Desenvolvimento: usa a cópia local do componente (clonada ao lado deste repositório).
+  # Para congelar os resultados, troque por:
+  #   git: https://github.com/Matheus-C-S-Azevedo/esp_aas_core.git
+  #   version: <tag>
+  matheus-c-s-azevedo/esp_aas_core:
+    version: "*"
+    override_path: "../../../esp_aas_core"

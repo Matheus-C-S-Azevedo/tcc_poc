@@ -1,0 +1,18 @@
+dependencies:
+  idf:
+    source:
+      type: idf
+    version: 6.0.2
+  matheus-c-s-azevedo/esp_aas_core:
+    dependencies:
+    - name: idf
+      version: '>=6.0'
+    source:
+      path: ../../esp_aas_core
+      type: local
+    version: 0.1.0
+direct_dependencies:
+- matheus-c-s-azevedo/esp_aas_core
+manifest_hash: b540ceb4b00f137716f70edb5cba7518af7fc7f6ee97f8fd69d0a5fb7bf66ee4
+target: esp32s3
+version: 3.0.0

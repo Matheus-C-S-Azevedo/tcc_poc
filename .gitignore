@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Editores
+.vscode/
+
+# KiCad
+*-backups/
+_autosave-*
+*.lck
+fp-info-cache
+*.kicad_prl
