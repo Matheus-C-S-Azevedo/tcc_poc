@@ -15,3 +15,10 @@ CONFIG_SPIRAM_SPEED_80M=y
 
 # FreeRTOS
 CONFIG_FREERTOS_HZ=1000
+
+# Configuração adotada na prova de viabilidade (cenário B):
+# - open62541 na PSRAM: libera ~110 KB de SRAM interna sem custo de latência mensurável
+# - economia de energia do Wi-Fi ligada: desligá-la não reduziu a latência e
+#   causou travamentos esporádicos de ~1 s e falhas de conexão
+CONFIG_OPEN62541_ALOCAR_PSRAM=y
+CONFIG_TCC_WIFI_ECONOMIA_ENERGIA=y

@@ -8,8 +8,7 @@ Prova de conceito do TCC: gêmeo digital (AAS Tipo 2) de uma carga elétrica rea
 tcc_poc/
 ├── hardware/    # esquemático, PCB, BOM e gerbers (KiCad)
 ├── firmware/    # aplicação ESP-IDF que usa o esp_aas_core
-├── aas/         # AASX e JSON do ativo monitorado
-└── avaliacao/   # scripts de medição, dados brutos e gráficos
+└── aas/         # AASX e JSON do ativo monitorado
 ```
 
 ## Hardware

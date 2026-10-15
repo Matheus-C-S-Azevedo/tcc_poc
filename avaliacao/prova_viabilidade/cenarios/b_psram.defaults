@@ -1,3 +1,0 @@
-# Cenário B: open62541 na PSRAM, Wi-Fi com economia de energia
-CONFIG_OPEN62541_ALOCAR_PSRAM=y
-CONFIG_TCC_WIFI_ECONOMIA_ENERGIA=y

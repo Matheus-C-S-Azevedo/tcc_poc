@@ -1,9 +1,0 @@
-500 leituras de TempoLigado em opc.tcp://192.168.0.90:4840
-  mínimo       7.51 ms
-  mediana     10.87 ms
-  média       14.39 ms
-  p95         28.82 ms
-  máximo     142.48 ms
-  desvio      10.09 ms
-
-Tempos gravados em /Users/matheus/Documents/TCC/TCC_Project/tcc_poc/avaliacao/prova_viabilidade/resultados_controlado/latencia_b_r4.csv

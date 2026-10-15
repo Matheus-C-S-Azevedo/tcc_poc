@@ -1,3 +1,0 @@
-# Cenário C: open62541 na PSRAM, Wi-Fi sem economia de energia (rádio sempre ativo)
-CONFIG_OPEN62541_ALOCAR_PSRAM=y
-# CONFIG_TCC_WIFI_ECONOMIA_ENERGIA is not set
