@@ -1,0 +1,7 @@
+2026-10-15 13:22:59 rodada 3 tentativa 1:
+Não foi possível conectar em opc.tcp://192.168.0.90:4840: client is disconnected
+
+2026-10-15 13:23:05 rodada 3 tentativa 2:
+Não foi possível conectar em opc.tcp://192.168.0.90:4840: client is disconnected
+
+2026-10-15 (análise posterior): a rodada 3 é INVÁLIDA. O computador cliente entrou em repouso às 13:04:56 (na bateria) e só despertou às 13:22:51 (DarkWake de manutenção, segundo pmset -g log); as duas tentativas falharam porque a rede do cliente ainda não estava disponível. O log serial do ESP32 (serial_esp32_rodadas_1_2.log) cobre as rodadas 1 e 2 e não registra nenhuma queda.

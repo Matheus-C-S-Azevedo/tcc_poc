@@ -57,11 +57,32 @@ Mediana e máximo de cada rodada:
 | B | 12,99 ms / 79,85 ms | 14,65 ms / 146,55 ms | 11,93 ms / 68,86 ms |
 | C | 11,21 ms / 1253,70 ms | 12,40 ms / 1126,13 ms | 15,84 ms / 1096,17 ms |
 
+## Resultado 4: repetição e teste controlado de B × C
+
+As falhas do cenário C motivaram duas medições adicionais:
+
+**Repetição do C** ([`resultados_repeticao_c/`](resultados_repeticao_c/)), com captura do log serial do ESP32: rodadas 1 e 2 sem travamento (máximos de 79 e 115 ms) e log serial limpo (conexões abrindo e fechando normalmente, sem queda de Wi-Fi). A rodada 3 é **inválida**: o computador cliente entrou em repouso durante a medição. Cruzando os horários com o log de energia do macOS (`pmset -g log`), verificou-se também que **uma das duas falhas da medição original (12:53:09) coincidiu com o repouso do cliente** por fechamento da tampa; ela é um artefato do cliente, não do ESP32.
+
+**Teste controlado** ([`resultados_controlado/`](resultados_controlado/)): B (controle) e C intercalados, 5 rodadas × 500 leituras cada. O script impede o repouso do cliente (`caffeinate`) e invalida automaticamente rodadas em que ele ocorra; nenhuma foi invalidada. Cliente na bateria e com a tampa aberta. Firmware `34f9c07`.
+
+| | B | C |
+|---|---|---|
+| Leituras | 2500 | 2500 |
+| Mediana | 12,64 ms | 12,38 ms |
+| p95 | 43,83 ms | 40,39 ms |
+| p99 | 94,45 ms | 82,88 ms |
+| Máximo | 323,96 ms | 1180,01 ms |
+| Leituras > 300 ms | 1 | 3 |
+| **Leituras > 900 ms** | **0** | **2** (rodadas 1 e 3, leituras nº 303 e 304) |
+| **Falhas de conexão** | **0** | **1** (rodada 2, "client is disconnected") |
+
+Somando todas as medições válidas, o cenário C teve leituras acima de 900 ms em 5 de 10 rodadas; os cenários A e B, em nenhuma de 11.
+
 ## Conclusões
 
 1. **A PSRAM não tem custo de latência mensurável neste cenário.** A diferença de mediana entre A e B (+0,66 ms) é menor que a variação entre rodadas do mesmo cenário (A: 11,6 a 14,6 ms). O tempo de processamento no servidor é pequeno diante do tempo de ida e volta pelo Wi-Fi.
 2. **A PSRAM libera ~110 KB de SRAM interna** e reduz a fragmentação: o maior bloco contíguo livre passa de 31 KB para 120 KB. Com isso, a carga de um AAS real (árvore do cJSON, nós adicionais) deixa de competir com Wi-Fi e lwIP pela memória interna.
-3. **Desligar a economia de energia do Wi-Fi não reduziu a mediana** e, neste teste, piorou a estabilidade: todas as rodadas do cenário C tiveram um travamento de ~1,1 a 1,25 s e houve 2 desconexões (`resultados/falhas.log`); A e B não tiveram nenhuma falha. A causa não foi determinada. Uma hipótese é perda de pacotes recuperada por retransmissão TCP (cerca de 1 s é um tempo de retransmissão típico); investigá-la exigiria captura de tráfego.
+3. **Desligar a economia de energia do Wi-Fi não reduziu a mediana e piorou os extremos.** Confirmado no teste controlado: com a economia desligada (C) surgem travamentos esporádicos de ~1,1 s e falhas de conexão ocasionais, ausentes com ela ligada (B), sob as mesmas condições. Uma das falhas da medição original foi causada pelo repouso do computador cliente e foi desconsiderada. A causa do comportamento do C não foi determinada. Hipóteses: perda de pacotes recuperada por retransmissão TCP (~1 s é um tempo de retransmissão típico) ou eventos de rádio do ESP32 (por exemplo, perda de beacons). Investigar exigiria capturar o log serial do ESP32 durante um travamento e/ou o tráfego de rede.
 4. Leituras consecutivas mantêm o rádio acordado mesmo com a economia de energia ligada, então este teste não mede o efeito dela sobre requisições esporádicas. Um teste com leituras espaçadas (por exemplo, uma por segundo) mediria esse efeito.
 5. A pilha da task OPC UA usa ~5 KB dos 24 KB reservados; dá para reduzir para algo como 12 KB depois de medir com o AAS real.
 
