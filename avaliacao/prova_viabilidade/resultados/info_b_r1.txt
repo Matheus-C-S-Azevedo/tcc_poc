@@ -1,0 +1,13 @@
+Servidor (opc.tcp://192.168.0.90:4840)
+  Produto      tcc_poc
+  Fabricante   Matheus C. S. Azevedo
+  Versão       34f9c07
+  URI          urn:tcc:poc
+
+Diagnostico
+  HeapInternoLivre         203687
+  HeapInternoMinimo        196703
+  HeapInternoMaiorBloco    122880
+  HeapPsramLivre           8273588
+  PilhaOpcuaLivre          19012
+  TempoLigado              33
